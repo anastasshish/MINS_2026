@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package warehouse.reference;
+
+option java_multiple_files = true;
+option java_package = "warehouse.reference.grpc";
+
+service ReferenceService {
+  rpc ValidateProduct (ValidateProductRequest) returns (ValidateProductResponse);
+  rpc CanStoreTogether (CanStoreTogetherRequest) returns (CanStoreTogetherResponse);
+  rpc ListCategories (ListCategoriesRequest) returns (ListCategoriesResponse);
+  rpc GetNeighborhoodRadius (NeighborhoodRadiusRequest) returns (NeighborhoodRadiusResponse);
+}
+
+enum ProductCategory {
+  PRODUCT_CATEGORY_UNSPECIFIED = 0;
+  FOOD = 1;
+  CHEMICALS = 2;
+  ELECTRONICS = 3;
+}
+
+message ValidateProductRequest {
+  string product_id = 1;
+  string name = 2;
+  int32 quantity = 3;
+  int32 cell_position = 4;
+  ProductCategory category = 5;
+}
+
+message ValidateProductResponse {
+  bool valid = 1;
+  string error_message = 2;
+}
+
+message CanStoreTogetherRequest {
+  ProductCategory category_a = 1;
+  ProductCategory category_b = 2;
+}
+
+message CanStoreTogetherResponse {
+  bool allowed = 1;
+  string reason = 2;
+}
+
+message ListCategoriesRequest {}
+
+message CategoryInfo {
+  ProductCategory category = 1;
+  string display_name = 2;
+}
+
+message ListCategoriesResponse {
+  repeated CategoryInfo categories = 1;
+}
+
+message NeighborhoodRadiusRequest {}
+
+message NeighborhoodRadiusResponse {
+  int32 radius = 1;
+}
