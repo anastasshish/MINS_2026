@@ -1,0 +1,158 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/amln/master/schema/tmlanguage.json",
+  "name": "Sos",
+  "scopeName": "source.sos",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#chars" },
+    { "include": "#numbers" },
+    { "include": "#member-access" },
+    { "include": "#keywords" },
+    { "include": "#constants" },
+    { "include": "#types-and-builtins" },
+    { "include": "#operators" },
+    { "include": "#identifiers" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.sos",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.sos",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.sos",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "chars": {
+      "name": "string.quoted.single.sos",
+      "match": "'(?:\\\\.|[^'\\\\])'"
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.sos",
+          "match": "(?<![а-яА-ЯёЁ0-9_])-?\\d+\\.\\d+(?![0-9])"
+        },
+        {
+          "name": "constant.numeric.integer.sos",
+          "match": "(?<![а-яА-ЯёЁ0-9_])-?\\d+(?![0-9])"
+        }
+      ]
+    },
+    "member-access": {
+      "patterns": [
+        {
+          "name": "variable.other.member.sos",
+          "match": "(?:этот|родитель|[А-ЯЁ][а-яА-ЯёЁ0-9?!_-]*|[а-яё][а-яА-ЯёЁ0-9?!_-]*)(?:\\.[а-яёА-ЯЁ][а-яА-ЯёЁ0-9?!_-]*)+"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.declaration.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:начало_начал|конструктор|интерфейс|реализует|подключить|функция|новый|класс)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        },
+        {
+          "name": "storage.modifier.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:переопределить|защищённый|публичный|приватный)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        },
+        {
+          "name": "keyword.control.exception.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:попробовать|словить|наконец|бросить)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        },
+        {
+          "name": "keyword.control.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:иначе_если|выполнять|продолжить|прервать|вариант|выбрать|вернуть|делать|выйти|иначе|пока|если|для|как)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        },
+        {
+          "name": "keyword.operator.word.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:или)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        },
+        {
+          "name": "keyword.operator.word.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:и|не|в)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        },
+        {
+          "name": "variable.language.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:этот|родитель)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:да|нет)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        },
+        {
+          "name": "constant.language.null.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))Нуль(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        }
+      ]
+    },
+    "types-and-builtins": {
+      "patterns": [
+        {
+          "name": "support.function.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:добавить_в_файл|прочитать_файл|записать_файл|это_экземпляр|добавить|печать|ввод|длина)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        },
+        {
+          "name": "storage.type.sos",
+          "match": "(?:^|(?<=[^а-яА-ЯёЁ0-9_?!\\-]))(?:вещественное|логическое|словарь|символ|строка|целое|пустое|тип)(?:(?=[^а-яА-ЯёЁ0-9_?!\\-])|$)"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.sos",
+          "match": "\\+\\+=|--=|\\+=|-="
+        },
+        {
+          "name": "keyword.operator.comparison.sos",
+          "match": "==|!=|<=|>="
+        },
+        {
+          "name": "keyword.operator.arithmetic.sos",
+          "match": "[+*/%^=<>]|(?<![0-9а-яА-ЯёЁ_])-(?![0-9])"
+        },
+        {
+          "name": "punctuation.terminator.sos",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.separator.sos",
+          "match": ","
+        },
+        {
+          "name": "punctuation.bracket.sos",
+          "match": "[{}\\[\\]():]"
+        }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        {
+          "name": "entity.name.type.class.sos",
+          "match": "[А-ЯЁ][а-яА-ЯёЁ0-9?!_-]*"
+        },
+        {
+          "name": "variable.other.sos",
+          "match": "[а-яё][а-яА-ЯёЁ0-9?!_-]*|[а-яА-ЯёЁ0-9?!_-]+"
+        }
+      ]
+    }
+  }
+}
